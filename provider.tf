@@ -9,8 +9,14 @@ terraform {
 
 # Configure the AWS Provider
 provider "aws" {
-  region = "us-east-1"
-#  default_tags {
-#    teste = "123"
-#  }
+  shared_config_files      = ["$HOME/.aws/config"]
+  shared_credentials_files = ["$HOME/.aws/credentials"]
+  profile                  = var.provider_attr.profile
+  region                   = var.provider_attr.region
+  default_tags {
+    tags = {
+      Deploy       = "terraform"
+      Project-Name = "aws-git-tf"
+    }
+  }
 }
